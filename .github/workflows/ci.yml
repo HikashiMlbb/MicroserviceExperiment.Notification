@@ -1,0 +1,24 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - master
+  pull_request: 
+    branches:
+      - master
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        
+      - name: Setup DotNet Environment
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+          
+      - name: Build DotNet Application
+        run: dotnet build
+        
+      - name: Test DotNet Application
+        run: dotnet test
