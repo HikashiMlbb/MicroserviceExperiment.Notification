@@ -1,15 +1,15 @@
-using Application.Ports.In;
+using Application.Common;
 using Application.Ports.Out;
 
 namespace Application.Services;
 
 public class IncomingMessageHandler(IEmailSender emailSender)
 {
-    public async Task Handle(MessageReceivedEvent @event)
+    public async Task Handle(Message message)
     {
-        var topic = @event.Topic;
-        var body = @event.Body;
-        var recipient = @event.Recipient;
+        var topic = message.Topic;
+        var body = message.Body;
+        var recipient = message.Recipient;
         
         await emailSender.SendEmailAsync(topic, body, recipient);
     }
