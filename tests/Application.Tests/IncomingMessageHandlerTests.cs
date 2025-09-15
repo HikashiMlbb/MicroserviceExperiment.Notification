@@ -1,4 +1,4 @@
-using Application.Ports.In;
+using Application.Common;
 using Application.Ports.Out;
 using Application.Services;
 using Moq;
@@ -25,7 +25,7 @@ public class IncomingMessageHandlerTests
         const string topic = "Some interesting topic";
         const string body = "Some interesting message body...";
         const string recipient = "unknown.address@dark.com";
-        var messageEvent = new MessageReceivedEvent(topic, body, recipient);
+        var messageEvent = new Message(topic, body, recipient);
 
         _emailSenderMock.Setup(x => x.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
         
