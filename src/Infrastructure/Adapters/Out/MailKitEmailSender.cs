@@ -1,11 +1,17 @@
+using Application.Common;
 using Application.Ports.Out;
+using Infrastructure.Settings;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MimeKit.Text;
 
 namespace Infrastructure.Adapters.Out;
 
-public class MailKitEmailSender : IEmailSender
+public class MailKitEmailSender(ISmtpService smtp) : IEmailSender
 {
-    public Task SendEmailAsync(string topic, string body, string recipient)
+    public async Task SendEmailAsync(string topic, string body, string recipient)
     {
-        throw new NotImplementedException();
+        var message = new Message(topic, body, recipient);
+        await smtp.SendMessage(message);
     }
 }
