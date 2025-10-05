@@ -47,9 +47,20 @@ public class SmtpService : ISmtpService
 
     private async Task Connect()
     {
-        _isConnected = true;
-        await _client.ConnectAsync(_mailSettings.SmtpHost, _mailSettings.SmtpPort, _mailSettings.UseSsl);
-        await _client.AuthenticateAsync(_mailSettings.SmtpLogin, _mailSettings.SmtpPassword);
+        try
+        {
+            await _client.ConnectAsync(_mailSettings.SmtpHost, _mailSettings.SmtpPort, _mailSettings.UseSsl);
+            await _client.AuthenticateAsync(_mailSettings.SmtpLogin, _mailSettings.SmtpPassword);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            _isConnected = _client.IsConnected;
+        }
     }
     
     public async ValueTask DisposeAsync()
