@@ -35,11 +35,12 @@ public class RabbitMessageListener : IMessageListener, IAsyncDisposable
     public async Task StartListeningAsync(CancellationToken token)
     {
         var consumer = new AsyncEventingBasicConsumer(_channel);
-
+        var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        
         consumer.ReceivedAsync += async (sender, @event) =>
         {
             var body = Encoding.UTF8.GetString(@event.Body.ToArray());
-            var result = JsonSerializer.Deserialize<Message>(body)!;
+            var result = JsonSerializer.Deserialize<Message>(body, jsonOptions)!;
 
             var message = new Message(result.Topic, result.Body, result.Recipient);
 
