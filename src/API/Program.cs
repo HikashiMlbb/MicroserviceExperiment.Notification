@@ -7,6 +7,8 @@ using Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHealthChecks();
+
 #region Application Layer
 
 builder.Services.AddScoped<IncomingMessageHandler>();
@@ -48,6 +50,7 @@ builder.Services.AddScoped<ISmtpService, SmtpService>();
 #endregion
 
 var app = builder.Build();
+app.MapHealthChecks("/healthz");
 
 await using (var scope = app.Services.CreateAsyncScope())
 {
