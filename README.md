@@ -1,4 +1,9 @@
-Fill .env for Application:
+## API Health Check:
+### `GET /healthz`
+
+---
+
+## Fill .env for Application:
 
 ```.env
 RABBITMQ__CONNECTION_STRING = "* Connection string for RabbitMQ *"
