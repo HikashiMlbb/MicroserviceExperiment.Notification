@@ -7,6 +7,7 @@ using Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddHealthChecks();
 
 #region Application Layer
