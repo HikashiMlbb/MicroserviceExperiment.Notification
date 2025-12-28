@@ -29,8 +29,8 @@ jobs:
       
       - name: Get Repository Name
         run: |
-          echo "REPO=$(echo ${{ github.repository }} | tr [:upper:] [:lower:])"
-          echo "REPO=$(${{ github.repository }} | tr [:upper:] [:lower:])" >> $GITHUB_ENV
+          echo "REPO=$(echo ${{ github.repository }} | tr [:upper:] [:lower:])" >> $GITHUB_ENV
+
           
       - name: Set up Docker BuildX
         uses: docker/setup-buildx-action@v3
